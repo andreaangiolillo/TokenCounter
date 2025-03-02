@@ -77,12 +77,11 @@
                             <div class="d-flex justify-content-between">
                                 <div>
                                     <select class="form-select" name="model" id="textModel">
-                                        <option value="{{ models.0|lower }}" {% if selected_model == models.0|lower %}selected{% endif %}>{{ models.0 }}</option>
-                                        <option value="{{ models.1|lower }}" {% if selected_model == models.1|lower %}selected{% endif %}>{{ models.1 }}</option>
-                                        <option value="{{ models.2|lower }}" {% if selected_model == models.2|lower %}selected{% endif %}>{{ models.2 }}</option>
-                                        <option value="{{ models.3|lower }}" {% if selected_model == models.3|lower %}selected{% endif %}>{{ models.3 }}</option>
-                                        <option value="{{ models.4|lower }}" {% if selected_model == models.4|lower %}selected{% endif %}>{{ models.4 }}</option>
-                                        <option value="{{ models.5|lower }}" {% if selected_model == models.5|lower %}selected{% endif %}>{{ models.5 }}</option>
+                                        {% for model in models %}
+                                            <option value="{{ model|lower }}" {% if selected_model == model|lower %}selected{% endif %}>
+                                                {{ model }}
+                                            </option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary">
