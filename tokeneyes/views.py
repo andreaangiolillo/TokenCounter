@@ -28,6 +28,8 @@ def calculate_tokens(request):
         error = None
         result = None
         print(f'input_type: {input_type}, model: {model}, text_content:{text_content}' )
+        words_count=len(text_content.split())
+
         
         open_ai = OpenAITokenUsageCalculator.TokenUsageCalculator()
         if open_ai.is_model_supported(model):
@@ -37,6 +39,8 @@ def calculate_tokens(request):
                     'input_type': 'PDF' if input_type == 'pdf' else 'Text',
                     'model': model,
                     'token_count': n_tokens,
+                    'words_count':words_count,
+                    'token_words_ratio': round(n_tokens/words_count, 3),
                     'cost': cost,
                     'text_content': text_content
             }
@@ -49,6 +53,8 @@ def calculate_tokens(request):
                     'input_type': 'PDF' if input_type == 'pdf' else 'Text',
                     'model': model,
                     'token_count': n_tokens,
+                    'words_count': words_count,
+                    'token_words_ratio': round(n_tokens/words_count, 3),
                     'cost': cost,
                     'text_content': text_content
             }

@@ -43,8 +43,7 @@
 <body>
     <div class="container py-5">
         <h1 class="text-center mb-4">Token Calculator</h1>
-        <h4 class="text-center mb-4">Calculate the <b>estimated</b> cost and token count when processing text or PDF
-            documents with an AI model.</h4>
+        <h4 class="text-center mb-4">Calculate the <b>estimated</b> cost and token count when processing text with an AI model.</h4>
         <div class="alert alert-warning" role="alert">
             <b>The token count and cost are estimates.</b> The actual number of input tokens used when creating a
             message may differ by a small amount.
@@ -109,11 +108,12 @@
                             </div>
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <select class="form-select" name="model" id="pdfModel">
-                                        <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
-                                        <option value="gpt-4">GPT-4</option>
-                                        <option value="claude-2">Claude 2</option>
-                                        <option value="llama-2">Llama 2</option>
+                                    <select class="form-select" name="model" id="textModel">
+                                        {% for model in models %}
+                                            <option value="{{ model|lower }}" {% if selected_model == model|lower %}selected{% endif %}>
+                                                {{ model }}
+                                            </option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary">
@@ -134,13 +134,16 @@
             <div class="row">
                 <div class="col-md-6">
                     <p><strong>Input Type:</strong> {{ result.input_type }}</p>
-                    <p><strong>Model:</strong> {{ result.model }}</p>
+                    <p><strong>Model:</strong> {{ result.model|upper }}</p>
+                    <p><strong>Words Count:</strong> {{ result.words_count }}</p>
+                    
                 </div>
                 <div class="col-md-6">
-                    <p><strong>Token Count:</strong> <span class="badge bg-primary">{{ result.token_count }}</span></p>
+                    <p><strong>Estimated Token Count:</strong> <span class="badge bg-primary">{{ result.token_count }}</span></p>
                     {% if result.cost %}
-                    <p><strong>Estimated Cost:</strong> <span class="badge bg-secondary">${{ result.cost }}</span></p>
+                    <p><strong>Estimated Cost:</strong> <span class="badge bg-primary">${{ result.cost }}</span></p>
                     {% endif %}
+                    <p><strong>Token/Words Ratio:</strong> <span class="badge bg-primary">{{ result.token_words_ratio }}</span></p>
                 </div>
             </div>
             {% if result.file_name %}

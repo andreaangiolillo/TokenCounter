@@ -23,11 +23,11 @@ class TokenUsageCalculator(Tokenizer):
     def get_available_models(self) -> list:
         return self.AVAILABLE_MODELS 
        
-    """Returns the cost per single token"""
+    """Returns the cost in cents per single token"""
     def get_cost_per_token(self, model:str) -> str:
         self._validate_model(model)
         cost = self.MODELS_COST[model]
-        return str(cost * 10**(-6))
+        return str(cost * (10**(-6)) * (10**-2))
     
     """Returns the number of tokens in a text string"""    
     def calculate_tokens(self, model:str, content: str) -> int:
@@ -47,13 +47,19 @@ class TokenUsageCalculator(Tokenizer):
 
         return 0
     
-    """Returns an estimate of the cost associated with the token in input"""
+    """
+    Returns an estimate of the cost in dollards associated with the token in input
+    Since the price are in cents, the total cost in dollars is calculated as:
+    
+    tot_cost = (cost_single_token_per_model * n_tokens) * 10**(-6) * 10**(-2)
+
+    - We multiply for 10**(-6) because prices are per 1M of tokens
+    - We multiply for 10**(-2) to trasform the price from cents to dollars
+    """
     def calculate_cost(self, model:str, n_tokens: int) -> str:
         self._validate_model(model)
         cost_per_token = self.MODELS_COST[model]
-        return str(cost_per_token * n_tokens * 10**(-6))
-
-
+        return str(round(cost_per_token * n_tokens * (10**(-6)) * (10**(-2)), 5))
 
     def is_model_supported(self, model: str) -> bool:
         return model in self.AVAILABLE_MODELS
