@@ -1,5 +1,6 @@
 import tiktoken
 from token_usage_calculators.token_usage_calculator import Tokenizer
+from decimal import Decimal, getcontext
 
 class TokenUsageCalculator(Tokenizer):
     AVAILABLE_MODELS = ["gpt-4o", "gpt-4o-mini", "gpt-4-turbo", "gpt-4", "gpt-3.5-turbo"]
@@ -23,16 +24,16 @@ class TokenUsageCalculator(Tokenizer):
 
     def get_available_models(self) -> list:
         return self.AVAILABLE_MODELS 
-       
+           
     """Returns the cost in cents per single token"""
     def get_cost_per_token(self, model:str) -> str:
         self._validate_model(model)
+        getcontext().prec = 7
         cost = self.MODELS_COST[model]
-        return str(cost * 10**(-6))
+        return str(Decimal(cost) * Decimal(10**(-8)))
     
     """Returns the number of tokens in a text string"""
     def calculate_tokens(self, model:str, content: str) -> int:
-        print(f"content: {content}")
         if content:
             self._validate_model(model)
             encoding = tiktoken.encoding_for_model(model)
@@ -52,7 +53,8 @@ class TokenUsageCalculator(Tokenizer):
     def calculate_cost(self, model:str, n_tokens: int) -> str:
         self._validate_model(model)
         cost_per_token = self.MODELS_COST[model]
-        return str(round(cost_per_token * n_tokens * (10**(-6)) * (10**(-2)), 8))
+        getcontext().prec = 10
+        return str(round(Decimal(cost_per_token) * Decimal(n_tokens) * Decimal(10**(-8)), 7))
 
 
     def is_model_supported(self, model: str) -> bool:

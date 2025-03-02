@@ -1,6 +1,7 @@
 import os
 import transformers
 from token_usage_calculators.token_usage_calculator import Tokenizer
+from decimal import Decimal, getcontext
 
 class TokenUsageCalculator(Tokenizer):
     AVAILABLE_MODELS = ["deepseek-v3", "deepseek-r1"]
@@ -26,8 +27,9 @@ class TokenUsageCalculator(Tokenizer):
     """Returns the cost in cents per single token"""
     def get_cost_per_token(self, model:str) -> str:
         self._validate_model(model)
+        getcontext().prec = 10
         cost = self.MODELS_COST[model]
-        return str(cost * (10**(-6)) * (10**-2))
+        return str(Decimal(cost) * Decimal(10**(-8)))
     
     """Returns the number of tokens in a text string"""    
     def calculate_tokens(self, model:str, content: str) -> int:
@@ -59,7 +61,8 @@ class TokenUsageCalculator(Tokenizer):
     def calculate_cost(self, model:str, n_tokens: int) -> str:
         self._validate_model(model)
         cost_per_token = self.MODELS_COST[model]
-        return str(cost_per_token * n_tokens * (10**(-6)) * (10**(-2)))
+        getcontext().prec = 10
+        return str(round(Decimal(cost_per_token) * Decimal(n_tokens) * Decimal(10**(-8)), 7))
 
     def is_model_supported(self, model: str) -> bool:
         return model in self.AVAILABLE_MODELS

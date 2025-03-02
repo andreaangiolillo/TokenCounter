@@ -27,7 +27,6 @@ def calculate_tokens(request):
         file_name = None
         error = None
         result = None
-        print(f'input_type: {input_type}, model: {model}, text_content:{text_content}' )
         words_count=len(text_content.split())
 
         
@@ -35,7 +34,6 @@ def calculate_tokens(request):
         if open_ai.is_model_supported(model):
             n_tokens = open_ai.calculate_tokens(model=model, content=text_content)
             cost =  open_ai.calculate_cost(model=model, n_tokens=n_tokens)
-            print(f'const:{cost}')
             result = {
                     'input_type': 'PDF' if input_type == 'pdf' else 'Text',
                     'model': model,
@@ -50,7 +48,6 @@ def calculate_tokens(request):
         if deepseek.is_model_supported(model):
             n_tokens = deepseek.calculate_tokens(model=model, content=text_content)
             cost =  deepseek.calculate_cost(model=model, n_tokens=n_tokens)
-            print(f'const:{cost}')
             result = {
                     'input_type': 'PDF' if input_type == 'pdf' else 'Text',
                     'model': model,
