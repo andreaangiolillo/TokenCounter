@@ -4,14 +4,17 @@ from django import forms
 from django.shortcuts import render
 from tokenizers.openapi import token_usage_calculator as OpenAITokenUsageCalculator
 from tokenizers import tokenizer
+from ordered_set import OrderedSet
 
 import PyPDF2    # For PDF text extraction
 
+MODELS_AVAILABLE_FORM = OrderedSet(["GPT-4", "GPT-4o", "GPT-4-Turbo","GPT-4-Mini", "GPT-3.5 Turbo", "Deepseek-V3"])
 
 def index(request):
     template = loader.get_template("tokeneyes/index.html")
     context = {
-        "model": "gpt-4"
+        "models": MODELS_AVAILABLE_FORM,
+        "selected_model": MODELS_AVAILABLE_FORM[0]
     }
     return HttpResponse(template.render(context, request))
 
@@ -44,8 +47,14 @@ def calculate_tokens(request):
         return render(request, 'tokeneyes/index.html', {
             'result': result,
             'error': error,
+            'models': MODELS_AVAILABLE_FORM,
+            'selected_model': model
         })
     
     # If not a POST request, redirect to index
-    return render(request, 'tokeneyes/index.html', {})
+    return render(request, 'tokeneyes/index.html', {
+        "models": MODELS_AVAILABLE_FORM,
+        'selected_model': MODELS_AVAILABLE_FORM[0]
+    })
+
 
