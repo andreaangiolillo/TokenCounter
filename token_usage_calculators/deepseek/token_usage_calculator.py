@@ -62,7 +62,8 @@ class TokenUsageCalculator(Tokenizer):
         self._validate_model(model)
         cost_per_token = self.MODELS_COST[model]
         getcontext().prec = 10
-        return str(round(Decimal(cost_per_token) * Decimal(n_tokens) * Decimal(10**(-8)), 7))
+        result = round(Decimal(cost_per_token) * Decimal(n_tokens) * Decimal(10**(-8)), 7)
+        return f"{result:.7f}"
 
     def is_model_supported(self, model: str) -> bool:
         return model in self.AVAILABLE_MODELS

@@ -158,7 +158,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <p><strong>Input Type:</strong> {{ result.input_type }}</p>
-                    <p><strong>Model:</strong> {{ result.model|upper }}</p>
+                    <p><strong>Model:</strong> {{ result.model }}</p>
                     <p><strong>Words Count:</strong> {{ result.words_count }}</p>
                     
                 </div>
@@ -181,10 +181,6 @@
             {{ error }}
         </div>
         {% endif %}
-        
-        <!-- Added spacing div -->
-        <div style="height: 30px;"></div>
-        
         <!-- Buy Me a Coffee Section -->
         <div class="coffee-section">
             <h6>Find this tool helpful?</h6>
