@@ -8,7 +8,7 @@ from ordered_set import OrderedSet
 
 import PyPDF2    # For PDF text extraction
 
-MODELS_AVAILABLE_FORM = OrderedSet(["GPT-4", "GPT-4o", "GPT-4-Turbo","GPT-4-Mini", "GPT-3.5 Turbo", "Deepseek-V3"])
+MODELS_AVAILABLE_FORM = OrderedSet(["GPT-4", "GPT-4o", "GPT-4-Turbo","GPT-4o-Mini", "GPT-3.5-Turbo", "Deepseek-V3"])
 
 def index(request):
     template = loader.get_template("tokeneyes/index.html")
