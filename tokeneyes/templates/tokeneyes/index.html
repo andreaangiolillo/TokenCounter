@@ -34,7 +34,7 @@
             background-color: #f0f0f0;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            min-width: 500px
+            min-width: 550px
         }
 
         .nav-tabs .nav-link.active {
@@ -80,7 +80,7 @@
 <body>
     <div class="container py-5">
         <h1 class="text-center mb-4">Token Calculator</h1>
-        <h4 class="text-center mb-4">Calculate the <b>estimated</b> cost and <b>input</b> token count when processing text with an AI model.</h4>
+        <h5 class="text-center mb-4">Calculate the <b>estimated</b> cost and <b>input</b> token count when processing text with an AI model.</h5>
         <div class="alert alert-warning" role="alert">
             <b>The token count and cost are estimates.</b> The actual number of input tokens used when creating a
             message may differ by a small amount.
@@ -120,6 +120,7 @@
                                         {% endfor %}
                                     </select>
                                 </div>
+
                                 <button type="submit" class="btn btn-primary">
                                     Calculate Tokens
                                     <span class="spinner-border spinner-border-sm" id="textSpinner" role="status"
