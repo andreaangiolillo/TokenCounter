@@ -36,7 +36,7 @@
 <body>
     <div class="container py-5">
         <h1 class="text-center mb-4">Token Calculator</h1>
-        <h6 class="text-center mb-4">Calculate an <b>estimate</b> of the number of tokens generated from text or PDF documents when processed by an AI model and get an <b>estimate</b> cost for the operation.</h6>
+        <h4 class="text-center mb-4">Calculate the <b>estimated</b> cost and token count when processing text or PDF documents with an AI model.</h4>
         <div class="alert alert-warning" role="alert">
             <b>The token count and cost are estimates.</b> The actual number of input tokens used when creating a message may differ by a small amount.
         </div>
@@ -60,7 +60,7 @@
                             <input type="hidden" name="input_type" value="text">
                             <div class="mb-3">
                                 <label for="textContent" class="form-label">Paste your text here:</label>
-                                <textarea class="form-control" id="textContent" name="text_content" rows="10" required></textarea>
+                                <textarea class="form-control" id="textContent" name="text_content" rows="10" required>{{ result.text_content }}</textarea>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <div>
