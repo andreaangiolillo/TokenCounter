@@ -14,14 +14,27 @@
 
         .card {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+        }
+
+        .result-box-father{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
         }
 
         .result-box {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
+            display: inline-block;
+            width: fit-content;
+            max-width: 100%;
+            height: auto;
+            padding: 10px;
             margin-top: 20px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            min-width: 500px
         }
 
         .nav-tabs .nav-link.active {
@@ -39,7 +52,7 @@
         }
         
         .coffee-section {
-            margin-top: 60px; /* Increased from 40px to 60px for more space */
+            margin-top: 10px;
             padding: 20px;
             text-align: center;
             border-top: 1px solid #eee;
@@ -153,26 +166,28 @@
         </div>
 
         {% if result %}
-        <div class="result-box">
-            <h4>Token Calculation Results</h4>
-            <div class="row">
-                <div class="col-md-6">
-                    <p><strong>Input Type:</strong> {{ result.input_type }}</p>
-                    <p><strong>Model:</strong> {{ result.model }}</p>
-                    <p><strong>Words Count:</strong> {{ result.words_count }}</p>
-                    
+        <div class="result-box-father">
+            <div class="result-box">
+                <!-- <h4>Token Calculation Results</h4> -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Input Type:</strong> {{ result.input_type }}</p>
+                        <p><strong>Model:</strong> {{ result.model }}</p>
+                        <p><strong>Words Count:</strong> {{ result.words_count }}</p>
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Estimated Token Count:</strong> <span class="badge bg-primary">{{ result.token_count }}</span></p>
+                        {% if result.cost %}
+                        <p><strong>Estimated Cost:</strong> <span class="badge bg-primary">${{ result.cost }}</span></p>
+                        {% endif %}
+                        <p><strong>Token/Words Ratio:</strong> <span class="badge bg-primary">{{ result.token_words_ratio }}</span></p>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <p><strong>Estimated Token Count:</strong> <span class="badge bg-primary">{{ result.token_count }}</span></p>
-                    {% if result.cost %}
-                    <p><strong>Estimated Cost:</strong> <span class="badge bg-primary">${{ result.cost }}</span></p>
-                    {% endif %}
-                    <p><strong>Token/Words Ratio:</strong> <span class="badge bg-primary">{{ result.token_words_ratio }}</span></p>
-                </div>
+                {% if result.file_name %}
+                <p><strong>File:</strong> {{ result.file_name }}</p>
+                {% endif %}
             </div>
-            {% if result.file_name %}
-            <p><strong>File:</strong> {{ result.file_name }}</p>
-            {% endif %}
         </div>
         {% endif %}
 
