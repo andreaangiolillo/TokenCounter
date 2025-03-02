@@ -59,7 +59,7 @@ class TokenUsageCalculator(Tokenizer):
     def calculate_cost(self, model:str, n_tokens: int) -> str:
         self._validate_model(model)
         cost_per_token = self.MODELS_COST[model]
-        return str(round(cost_per_token * n_tokens * (10**(-6)) * (10**(-2)), 5))
+        return str(cost_per_token * n_tokens * (10**(-6)) * (10**(-2)))
 
     def is_model_supported(self, model: str) -> bool:
         return model in self.AVAILABLE_MODELS
