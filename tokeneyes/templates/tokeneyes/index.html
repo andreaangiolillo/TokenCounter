@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 800px;
+        }
+        .card {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .result-box {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .nav-tabs .nav-link.active {
+            font-weight: bold;
+        }
+        #fileUploadInfo {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        .spinner-border {
+            display: none;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Token Calculator</h1>
+        <h6 class="text-center mb-4">Calculate an <b>estimate</b> of the number of tokens generated from text or PDF documents when processed by an AI model and get an <b>estimate</b> cost for the operation.</h6>
+        <div class="alert alert-warning" role="alert">
+            <b>The token count and cost are estimates.</b> The actual number of input tokens used when creating a message may differ by a small amount.
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" id="inputTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="text-tab" data-bs-toggle="tab" data-bs-target="#text-input" type="button" role="tab" aria-controls="text-input" aria-selected="true">Text Input</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pdf-tab" data-bs-toggle="tab" data-bs-target="#pdf-input" type="button" role="tab" aria-controls="pdf-input" aria-selected="false">PDF Upload</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="inputTabsContent">
+                    <!-- Text Input Tab -->
+                    <div class="tab-pane fade show active" id="text-input" role="tabpanel" aria-labelledby="text-tab">
+                        <form id="textForm" method="post" action="{% url 'calculate_tokens' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="input_type" value="text">
+                            <div class="mb-3">
+                                <label for="textContent" class="form-label">Paste your text here:</label>
+                                <textarea class="form-control" id="textContent" name="text_content" rows="10" required></textarea>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <select class="form-select" name="model" id="textModel">
+                                        <option value="gpt-4">GPT-4</option>
+                                        <option value="gpt-4o">GPT-4o</option>
+                                        <option value="gpt-4-turbo">GPT-4 Turbo</option>
+                                        <option value="gpt-4o-mini">GPT-4 Mini</option>
+                                        <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                                        <option value="deepseek-v3">Deepseek V3</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    Calculate Tokens
+                                    <span class="spinner-border spinner-border-sm" id="textSpinner" role="status" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- PDF Upload Tab -->
+                    <div class="tab-pane fade" id="pdf-input" role="tabpanel" aria-labelledby="pdf-tab">
+                        <form id="pdfForm" method="post" action="{% url 'calculate_tokens' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="input_type" value="pdf">
+                            <div class="mb-3">
+                                <label for="pdfFile" class="form-label">Upload PDF file:</label>
+                                <input class="form-control" type="file" id="pdfFile" name="pdf_file" accept=".pdf" required>
+                                <div id="fileUploadInfo" class="mt-2">
+                                    Maximum file size: 10MB. Only PDF files are accepted.
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <select class="form-select" name="model" id="pdfModel">
+                                        <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                                        <option value="gpt-4">GPT-4</option>
+                                        <option value="claude-2">Claude 2</option>
+                                        <option value="llama-2">Llama 2</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    Calculate Tokens
+                                    <span class="spinner-border spinner-border-sm" id="pdfSpinner" role="status" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if result %}
+        <div class="result-box">
+            <h4>Token Calculation Results</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Input Type:</strong> {{ result.input_type }}</p>
+                    <p><strong>Model:</strong> {{ result.model }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Token Count:</strong> <span class="badge bg-primary">{{ result.token_count }}</span></p>
+                    {% if result.cost %}
+                    <p><strong>Estimated Cost:</strong> <span class="badge bg-secondary">${{ result.cost }}</span></p>
+                    {% endif %}
+                </div>
+            </div>
+            {% if result.file_name %}
+            <p><strong>File:</strong> {{ result.file_name }}</p>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="alert alert-danger mt-3" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show loading spinner when forms are submitted
+            document.getElementById('textForm').addEventListener('submit', function() {
+                document.getElementById('textSpinner').style.display = 'inline-block';
+            });
+            
+            document.getElementById('pdfForm').addEventListener('submit', function() {
+                document.getElementById('pdfSpinner').style.display = 'inline-block';
+            });
+        });
+    </script>
+</body>
+</html>
