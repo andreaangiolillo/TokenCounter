@@ -33,15 +33,16 @@ def calculate_tokens(request):
             raise ValueError("OpenAITokenUsageCalculator does not implment Tokenizer")
         
         open_ai = OpenAITokenUsageCalculator.TokenUsageCalculator()
-        n_tokens = open_ai.calculate_tokens(model=model, content=text_content)
-        cost =  open_ai.calculate_cost(model=model, n_tokens=n_tokens)
-        result = {
-                'input_type': 'PDF' if input_type == 'pdf' else 'Text',
-                'model': model,
-                'token_count': n_tokens,
-                'cost': cost,
-                'text_content': text_content
-        }
+        if open_ai.is_model_supported(model):
+            n_tokens = open_ai.calculate_tokens(model=model, content=text_content)
+            cost =  open_ai.calculate_cost(model=model, n_tokens=n_tokens)
+            result = {
+                    'input_type': 'PDF' if input_type == 'pdf' else 'Text',
+                    'model': model,
+                    'token_count': n_tokens,
+                    'cost': cost,
+                    'text_content': text_content
+            }
 
          # Render the same template with results or error
         return render(request, 'tokeneyes/index.html', {

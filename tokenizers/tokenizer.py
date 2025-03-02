@@ -17,3 +17,7 @@ class Tokenizer():
     @abstractmethod
     def get_available_models(self) -> list:
         pass
+
+    @abstractmethod
+    def is_model_supported(self, model: str) -> bool:
+        pass

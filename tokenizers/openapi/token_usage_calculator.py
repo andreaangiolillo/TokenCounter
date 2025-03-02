@@ -48,5 +48,6 @@ class TokenUsageCalculator(Tokenizer):
 
 
 
-
+    def is_model_supported(self, model: str) -> bool:
+        return model in self.AVAILABLE_MODELS
     
