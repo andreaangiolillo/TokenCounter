@@ -74,6 +74,31 @@
             background-color: #E5C700;
             transform: translateY(-2px);
         }
+    
+        .ios-shield-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+        }
+        
+        .ios-shield-icon svg {
+            width: 16px;
+            height: 16px;
+            fill: #007AFF; /* iOS blue */
+        }
+        
+        /* Clean message style */
+        .status-message {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #8e8e93; /* iOS secondary text color */
+            margin: 8px 0;
+    }
+
     </style>
 </head>
 
@@ -120,7 +145,14 @@
                                         {% endfor %}
                                     </select>
                                 </div>
-
+                                <div class="status-message">
+                                    <span class="ios-shield-icon">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                                        </svg>
+                                    </span>
+                                    <span>Privacy: We don't save your data</span>
+                                </div>
                                 <button type="submit" class="btn btn-primary">
                                     Calculate Tokens
                                     <span class="spinner-border spinner-border-sm" id="textSpinner" role="status"
@@ -152,6 +184,14 @@
                                             </option>
                                         {% endfor %}
                                     </select>
+                                </div>
+                                <div class="status-message">
+                                    <span class="ios-shield-icon">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                                        </svg>
+                                    </span>
+                                    <span>Privacy: We don't save your data</span>
                                 </div>
                                 <button type="submit" class="btn btn-primary">
                                     Calculate Tokens
