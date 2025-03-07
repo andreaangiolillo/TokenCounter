@@ -1,13 +1,13 @@
 asgiref==3.8.1
 certifi==2025.1.31
 charset-normalizer==3.4.1
-Django==4.2.20
+Django==5.1.7
 filelock==3.17.0
 fsspec==2025.3.0
 gunicorn==23.0.0
 huggingface-hub==0.29.2
 idna==3.10
-numpy==2.0.2
+numpy==2.2.3
 ordered-set==4.1.0
 packaging==24.2
 PyPDF2==3.0.1
