@@ -1,7 +1,7 @@
 asgiref==3.8.1
 certifi==2025.1.31
 charset-normalizer==3.4.1
-Django==4.2.19
+Django==4.2.20
 filelock==3.17.0
 fsspec==2025.2.0
 gunicorn==23.0.0
