@@ -9,6 +9,7 @@ from tokenizers import Tokenizer
 import os
 import logging
 import PyPDF2  
+from django.conf import settings
 
 # Configure logging
 logging.basicConfig(level=logging.ERROR, format='%(asctime)s %(levelname)s %(message)s')
@@ -20,7 +21,8 @@ def index(request):
     context = {
         "models": MODELS_AVAILABLE_FORM,
         "selected_model": MODELS_AVAILABLE_FORM[0],
-        'input_type': 'text'
+        'input_type': 'text',
+        'google_site_verification': settings.GOOGLE_SITE_VERIFICATION,
     }
     return HttpResponse(template.render(context, request))
 
@@ -52,7 +54,8 @@ def calculate_tokens(request):
     return render(request, 'tokeneyes/index.html', {
         "models": MODELS_AVAILABLE_FORM,
         'selected_model': MODELS_AVAILABLE_FORM[0],
-        'input_type': 'text'
+        'input_type': 'text',
+        'google_site_verification': settings.GOOGLE_SITE_VERIFICATION,
     })
 
 def calculate_token_post(request):
@@ -93,5 +96,6 @@ def calculate_token_post(request):
             'error': error,
             'models': MODELS_AVAILABLE_FORM,
             'selected_model': model
+            'google_site_verification': settings.GOOGLE_SITE_VERIFICATION,
     })
 
