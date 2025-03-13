@@ -95,7 +95,7 @@ def calculate_token_post(request):
             'result': result,
             'error': error,
             'models': MODELS_AVAILABLE_FORM,
-            'selected_model': model
+            'selected_model': model,
             'google_site_verification': settings.GOOGLE_SITE_VERIFICATION,
     })
 
