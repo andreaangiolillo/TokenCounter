@@ -9,12 +9,12 @@ from tokenizers import Tokenizer
 import os
 import logging
 import PyPDF2  
-from django.conf import settings
 
 # Configure logging
 logging.basicConfig(level=logging.ERROR, format='%(asctime)s %(levelname)s %(message)s')
 
 MODELS_AVAILABLE_FORM = OrderedSet(["GPT-4", "GPT-4o", "GPT-4-Turbo","GPT-4o-Mini", "GPT-3.5-Turbo", "Deepseek-V3", "Deepseek-R1"])
+GOOGLE_VERIFICATION_TOKEN=os.getenv("GOOGLE_VERIFICATION_TOKEN")
 
 def index(request):
     template = loader.get_template("tokeneyes/index.html")
@@ -22,7 +22,7 @@ def index(request):
         "models": MODELS_AVAILABLE_FORM,
         "selected_model": MODELS_AVAILABLE_FORM[0],
         'input_type': 'text',
-        'google_site_verification': settings.GOOGLE_SITE_VERIFICATION,
+        'google_site_verification': GOOGLE_VERIFICATION_TOKEN,
     }
     return HttpResponse(template.render(context, request))
 
@@ -55,7 +55,7 @@ def calculate_tokens(request):
         "models": MODELS_AVAILABLE_FORM,
         'selected_model': MODELS_AVAILABLE_FORM[0],
         'input_type': 'text',
-        'google_site_verification': settings.GOOGLE_SITE_VERIFICATION,
+        'google_site_verification': GOOGLE_VERIFICATION_TOKEN,
     })
 
 def calculate_token_post(request):
@@ -96,6 +96,6 @@ def calculate_token_post(request):
             'error': error,
             'models': MODELS_AVAILABLE_FORM,
             'selected_model': model,
-            'google_site_verification': settings.GOOGLE_SITE_VERIFICATION,
+            'google_site_verification': GOOGLE_VERIFICATION_TOKEN,
     })
 
