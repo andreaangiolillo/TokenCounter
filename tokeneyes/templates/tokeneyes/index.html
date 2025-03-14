@@ -8,10 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="{{ google_site_verification }}" />
     {% load static %}
-    <!-- And update these lines -->
     <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
     <link rel="icon" type="image/svg+xml" href="{% static 'images/favicon.svg' %}">
     <meta name="description" content="Calculate the cost and input token count when processing text with an OpenAI ChatGPT and DeepSeek models.">
+    <meta name="robots" content="index, follow">
     <title>Token Calculator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -111,7 +111,10 @@
 
 <body>
     <div class="container py-5">
-        <h1 class="text-center mb-4">Token Calculator</h1>
+        <div class="d-flex align-items-center justify-content-center mb-4">
+            <img src="{% static 'images/favicon.png' %}" alt="logo" style="height: 100px; margin-right: 15px;">
+            <h1 class="mb-0">Token Calculator</h1>
+        </div>
         <h5 class="text-center mb-4">Calculate the <b>estimated</b> cost and <b>input</b> token count when processing text with an AI model.</h5>
         <div class="alert alert-warning" role="alert">
             <b>The token count and cost are estimates.</b> The actual number of input tokens used when creating a
