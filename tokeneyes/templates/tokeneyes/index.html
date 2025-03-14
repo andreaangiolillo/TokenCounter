@@ -137,7 +137,7 @@
                 <div class="tab-content" id="inputTabsContent">
                     <!-- Text Input Tab -->
                     <div class="tab-pane fade {% if input_type == 'text' %}show active{% endif %}" id="text-input" role="tabpanel" aria-labelledby="text-tab">
-                        <form id="textForm" method="post" action="{% url 'calculate_tokens' %}">
+                        <form id="textForm" method="post" action="/">
                             {% csrf_token %}
                             <input type="hidden" name="input_type" value="text">
                             <div class="mb-3">
@@ -173,7 +173,7 @@
                     </div>
                     <!-- PDF Upload Tab -->
                     <div class="tab-pane fade {% if input_type == 'pdf' %}show active{% endif %}" id="pdf-input" role="tabpanel" aria-labelledby="pdf-tab">
-                        <form id="pdfForm" method="post" action="{% url 'calculate_tokens' %}"
+                        <form id="pdfForm" method="post" action="/"
                             enctype="multipart/form-data">
                             {% csrf_token %}
                             <input type="hidden" name="input_type" value="pdf">
