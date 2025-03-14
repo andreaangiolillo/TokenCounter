@@ -46,6 +46,12 @@ def _get_tokenizer(model: str) -> Tokenizer:
         return open_ai
     return DeepseekTokenUsageCaculator.TokenUsageCalculator()
 
+
+def about(request):
+      return render(request, 'tokeneyes/aboutUs.html', {
+        'google_site_verification': GOOGLE_VERIFICATION_TOKEN,
+    })  
+
 def calculate_tokens(request):
     if request.method == 'POST':
         return calculate_token_post(request)
