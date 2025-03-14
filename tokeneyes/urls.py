@@ -3,6 +3,5 @@ from . import views
 
 urlpatterns = [
     path("", views.calculate_tokens, name = "calculate_tokens"),
-    path("about", views.about, name = "calculate_tokens"),
-    
+    path("about", views.about, name = "about"),
 ]
