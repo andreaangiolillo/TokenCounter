@@ -2,7 +2,7 @@ asgiref==3.8.1
 certifi==2025.1.31
 charset-normalizer==3.4.1
 Django==5.1.7
-filelock==3.17.0
+filelock==3.18.0
 fsspec==2025.3.0
 gunicorn==23.0.0
 huggingface-hub==0.29.2
