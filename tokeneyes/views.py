@@ -52,6 +52,7 @@ def _get_tokenizer(model: str) -> Tokenizer:
 def about(request):
       return render(request, 'tokeneyes/aboutUs.html', {
         'google_site_verification': GOOGLE_VERIFICATION_TOKEN,
+        'google_tag_id': GOOGLE_TAG_ID
     })  
 
 def calculate_tokens(request):
