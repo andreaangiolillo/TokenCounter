@@ -15,6 +15,7 @@ logging.basicConfig(level=logging.ERROR, format='%(asctime)s %(levelname)s %(mes
 
 MODELS_AVAILABLE_FORM = OrderedSet(["GPT-4", "GPT-4o", "GPT-4-Turbo","GPT-4o-Mini", "GPT-3.5-Turbo", "Deepseek-V3", "Deepseek-R1"])
 GOOGLE_VERIFICATION_TOKEN=os.getenv("GOOGLE_VERIFICATION_TOKEN")
+GOOGLE_TAG_ID=os.getenv("GOOGLE_TAG_ID")
 
 def index(request):
     template = loader.get_template("tokeneyes/index.html")
@@ -23,6 +24,7 @@ def index(request):
         "selected_model": MODELS_AVAILABLE_FORM[0],
         'input_type': 'text',
         'google_site_verification': GOOGLE_VERIFICATION_TOKEN,
+        'google_tag_id': GOOGLE_TAG_ID
     }
     return HttpResponse(template.render(context, request))
 
@@ -62,6 +64,7 @@ def calculate_tokens(request):
         'selected_model': MODELS_AVAILABLE_FORM[0],
         'input_type': 'text',
         'google_site_verification': GOOGLE_VERIFICATION_TOKEN,
+        'google_tag_id': GOOGLE_TAG_ID
     })
 
 def calculate_token_post(request):
@@ -103,5 +106,6 @@ def calculate_token_post(request):
             'models': MODELS_AVAILABLE_FORM,
             'selected_model': model,
             'google_site_verification': GOOGLE_VERIFICATION_TOKEN,
+            'google_tag_id': GOOGLE_TAG_ID,
     })
 
