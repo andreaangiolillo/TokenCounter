@@ -6,9 +6,9 @@ from token_usage_calculators.openapi import token_usage_calculator as OpenAIToke
 from token_usage_calculators.deepseek import token_usage_calculator as DeepseekTokenUsageCaculator
 from ordered_set import OrderedSet
 from tokenizers import Tokenizer
+from pypdf import PdfReader
 import os
 import logging
-import PyPDF2  
 
 # Configure logging
 logging.basicConfig(level=logging.ERROR, format='%(asctime)s %(levelname)s %(message)s')
@@ -30,7 +30,7 @@ def index(request):
 
 def _get_content_from_pdf(pdf_file) -> str:
     _validate_pdf_file(pdf_file)
-    pdf_reader = PyPDF2.PdfReader(pdf_file)
+    pdf_reader = PdfReader(pdf_file)
     # Extract text from all pages
     text_content = ""
     for page in pdf_reader.pages:
