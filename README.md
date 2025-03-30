@@ -1,4 +1,6 @@
-# LLM Token Counter
+# LLM Token Counter 
+[☕ Buy me a coffee](https://buymeacoffee.com/keeptryingforfun)
+
 LLM Token Counter calculates the number of input tokens and the associated cost incurred when processing text using an AI model via APIs.
 
 Tokens are the basic units of text processed by AI models. The number of tokens in a given text depends on both its length and complexity.
@@ -53,8 +55,3 @@ python manage.py runserver
 ```
 
 The web application will now be available at: [http://localhost:8080](http://localhost:8080)
-
-
-
-            
-[☕ Buy me a coffee](https://buymeacoffee.com/keeptryingforfun)
