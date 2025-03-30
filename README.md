@@ -52,6 +52,16 @@ python manage.py collectstatic
 Once the static files are collected, start the web application by running:
 ```bash
 python manage.py runserver
+
+Watching for file changes with StatReloader
+Performing system checks...
+
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+System check identified no issues (0 silenced).
+March 30, 2025 - 13:37:14
+Django version 5.1.7, using settings 'mysite.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
 ```
 
 The web application will now be available at: [http://localhost:8080](http://localhost:8080)
