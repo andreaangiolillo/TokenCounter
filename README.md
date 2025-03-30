@@ -1,5 +1,6 @@
 # LLM Token Counter 
 [☕ Buy me a coffee](https://buymeacoffee.com/keeptryingforfun)
+![Screenshot 2025-03-30 at 14 39 36](https://github.com/user-attachments/assets/3bc8d54d-9a85-40c8-981e-ae74d932dabc)
 
 LLM Token Counter calculates the number of input tokens and the associated cost incurred when processing text using an AI model via APIs.
 
