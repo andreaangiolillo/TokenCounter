@@ -10,7 +10,7 @@ idna==3.10
 numpy==2.2.3
 ordered-set==4.1.0
 packaging==24.2
-pypdf==3.9.0
+pypdf==3.17.0
 PyYAML==6.0.2
 regex==2024.11.6
 requests==2.32.3
